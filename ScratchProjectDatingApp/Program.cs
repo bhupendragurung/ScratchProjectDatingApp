@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ScratchProjectDatingApp.Data;
 using ScratchProjectDatingApp.Extensions;
 using ScratchProjectDatingApp.Interfaces;
+using ScratchProjectDatingApp.Middleware;
 using ScratchProjectDatingApp.Services;
 using System.Text;
 
@@ -19,7 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationService( builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
