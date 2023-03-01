@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ScratchProjectDatingApp.Data;
+using ScratchProjectDatingApp.Helper;
 using ScratchProjectDatingApp.Interfaces;
 using ScratchProjectDatingApp.Services;
 
@@ -19,6 +20,8 @@ namespace ScratchProjectDatingApp.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.Configure<ClodinarySettings>(config.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService, PhotoService>();
             return services;
         }
     }

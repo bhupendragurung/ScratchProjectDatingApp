@@ -34,4 +34,11 @@ baseUrl=environment.apiUrl;
       })
     );
   }
+  setMainPhoto(PhotoId:number){
+   return this.http.put(this.baseUrl+'users/set-main-photo/' +PhotoId.toString(),{});
+  }
+  DeletePhoto(photoId:number){
+   return this.http.delete(this.baseUrl+'users/delete-photo/' +photoId);
+
+  }
 }
