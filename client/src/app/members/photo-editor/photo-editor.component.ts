@@ -81,6 +81,12 @@ this.memberService.DeletePhoto(photoId).subscribe({
       if(response){
         const photo= JSON.parse(response);
         this.member?.photos.push(photo);
+        if(this.user && this.member && photo.isMain){
+          this.user.photoUrl=photo.url;
+          this.member.photoUrl=photo.url;
+          this.accountService.setCurrentUser(this.user);
+        
+        }
       }
     }
   }
