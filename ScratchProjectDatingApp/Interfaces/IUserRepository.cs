@@ -1,5 +1,6 @@
 ﻿using ScratchProjectDatingApp.DTOs;
 using ScratchProjectDatingApp.Entity;
+using ScratchProjectDatingApp.Helper;
 
 namespace ScratchProjectDatingApp.Interfaces
 {
@@ -10,7 +11,7 @@ namespace ScratchProjectDatingApp.Interfaces
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
         Task<bool> SaAllAsync();
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task<MemberDto> GetMemberAsync(string username);
      
     }

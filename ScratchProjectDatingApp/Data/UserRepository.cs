@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ScratchProjectDatingApp.DTOs;
 using ScratchProjectDatingApp.Entity;
+using ScratchProjectDatingApp.Helper;
 using ScratchProjectDatingApp.Interfaces;
 
 namespace ScratchProjectDatingApp.Data
@@ -26,11 +27,24 @@ namespace ScratchProjectDatingApp.Data
                  .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            return await _context.Users
-               .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-               .ToListAsync();
+            var query = _context.Users.AsQueryable();
+            query = query.Where(x => x.UserName != userParams.CurrentUsername);
+            query = query.Where(x => x.Gender == userParams.Gender);
+            var minDob = DateTime.Now.AddYears(-userParams.MaxAge - 1);
+            var maxDob = DateTime.Now.AddYears(-userParams.MinAge);
+            query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
+
+             query = userParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(x => x.Created),
+                _ => query.OrderByDescending(x => x.LastActive)
+            };
+
+            return await PagedList<MemberDto>.CreateAsync(
+                query.AsNoTracking().ProjectTo<MemberDto>(_mapper.ConfigurationProvider), 
+                userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)

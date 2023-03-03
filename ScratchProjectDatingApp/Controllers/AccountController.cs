@@ -41,6 +41,7 @@ namespace ScratchProjectDatingApp.Controllers
             { Username=user.UserName,
             Token=_tokenService.CreateToken(user),
             knownAs=user.KnownAs,
+            Gender=user.Gender,
             };
         }
 
@@ -65,6 +66,7 @@ namespace ScratchProjectDatingApp.Controllers
                 Token = _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 knownAs = user.KnownAs,
+                Gender= user.Gender, 
             };
 
         }
