@@ -22,6 +22,7 @@ namespace ScratchProjectDatingApp.Extensions
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<ClodinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikesRepository, LIkesRepository>();
             services.AddScoped<LogUserActivity>();
             return services;
         }

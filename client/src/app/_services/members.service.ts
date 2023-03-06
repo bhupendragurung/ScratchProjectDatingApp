@@ -60,6 +60,7 @@ if(response){return of(response);}
       })
     )
   }
+
   private getPaginatedResult<T>( url:string, params: HttpParams) {
     const paginatedResult:PaginatedResult<T>=new PaginatedResult<T>;
     return this.http.get<T>(url , { observe: 'response', params }).pipe(
@@ -107,5 +108,14 @@ if(response){return of(response);}
   DeletePhoto(photoId:number){
    return this.http.delete(this.baseUrl+'users/delete-photo/' +photoId);
 
+  }
+  addLike(username:string){
+    return this.http.post(this.baseUrl +'likes/' + username,{});
+  }
+  getLikes(predicate:string,pageNumber:number,pageSize:number){
+    let params=this.getPaginationHeaders(pageNumber,pageSize);
+    params= params.append('predicate',predicate);
+
+    return this.getPaginatedResult<Member[]>(this.baseUrl + 'likes',params);
   }
 }
