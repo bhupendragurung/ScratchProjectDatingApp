@@ -23,6 +23,7 @@ namespace ScratchProjectDatingApp.Extensions
             services.Configure<ClodinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ILikesRepository, LIkesRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<LogUserActivity>();
             return services;
         }
