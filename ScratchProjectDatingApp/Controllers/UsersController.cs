@@ -26,7 +26,7 @@ namespace ScratchProjectDatingApp.Controllers
             _mapper = mapper;
             _photoService = photoService;
         }
-
+    
         [HttpGet]
         public async  Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
@@ -41,6 +41,7 @@ namespace ScratchProjectDatingApp.Controllers
             return Ok(users); 
 
         }
+
 
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
