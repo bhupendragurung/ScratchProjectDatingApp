@@ -15,5 +15,10 @@ namespace ScratchProjectDatingApp.Interfaces
         Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername);
         Task<bool> SaveAllAsync();
+        void AddGroup(Entity.Group group);
+        void RemoveConnection(Entity.Connection connection);
+        Task<Entity.Connection> GetConnection(string connectionId);
+        Task<Entity.Group> GetMessageGroup(string groupName);
+        Task<Entity.Group> GetGroupForConnection(string connectionId);
     }
 }

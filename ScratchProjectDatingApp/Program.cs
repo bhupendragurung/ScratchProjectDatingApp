@@ -8,6 +8,7 @@ using ScratchProjectDatingApp.Extensions;
 using ScratchProjectDatingApp.Interfaces;
 using ScratchProjectDatingApp.Middleware;
 using ScratchProjectDatingApp.Services;
+using ScratchProjectDatingApp.SignalR;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,12 +33,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200"));
 app.UseAuthentication();
 
 app.UseAuthorization();
 app.MapControllers();
-
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 var scope = app.Services.CreateScope();
 var services=scope.ServiceProvider;
 try
@@ -46,6 +48,7 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
+    await context.Database.ExecuteSqlRawAsync("truncate table [Connections]");
     await Seed.SeedUser(userManager,roleManager);
 }
 catch (Exception ex)

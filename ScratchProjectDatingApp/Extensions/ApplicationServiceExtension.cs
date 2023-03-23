@@ -3,6 +3,7 @@ using ScratchProjectDatingApp.Data;
 using ScratchProjectDatingApp.Helper;
 using ScratchProjectDatingApp.Interfaces;
 using ScratchProjectDatingApp.Services;
+using ScratchProjectDatingApp.SignalR;
 
 namespace ScratchProjectDatingApp.Extensions
 {
@@ -25,6 +26,8 @@ namespace ScratchProjectDatingApp.Extensions
             services.AddScoped<ILikesRepository, LIkesRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<LogUserActivity>();
+            services.AddSignalR();
+            services.AddSingleton<PresenceTracker>();
             return services;
         }
     }
