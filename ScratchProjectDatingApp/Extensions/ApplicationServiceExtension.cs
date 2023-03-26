@@ -19,12 +19,11 @@ namespace ScratchProjectDatingApp.Extensions
             });
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<ClodinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<ILikesRepository, LIkesRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+          
             services.AddScoped<LogUserActivity>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
