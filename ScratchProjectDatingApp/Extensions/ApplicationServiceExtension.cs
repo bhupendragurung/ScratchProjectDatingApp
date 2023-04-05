@@ -13,10 +13,10 @@ namespace ScratchProjectDatingApp.Extensions
         {
 
 
-            services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-            });
+            // services.AddDbContext<DataContext>(opt =>
+            // {
+            //     opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            // });
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
