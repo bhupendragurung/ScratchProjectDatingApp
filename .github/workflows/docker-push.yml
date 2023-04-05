@@ -24,6 +24,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context:"{{defaultcontext}}:ScratchProjectDatingApp"
+          context: "{{defaultContext}}:ScratchProjectDatingApp"
           push: true
           tags: bhupendragurung/datingapp:latest
