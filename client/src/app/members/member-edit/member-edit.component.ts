@@ -45,7 +45,7 @@ updateMember()
 {
  this.memberService.updateMember(this.editForm?.value).subscribe({
   next:_ =>{
-    this.toastr.success('Profile data changed successfully');
+    this.toastr.success('Namaste successfully');
     this.editForm?.reset(this.member);
   }
  });
